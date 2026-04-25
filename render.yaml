@@ -3,7 +3,7 @@ services:
     name: fairhire-backend
     env: python
     buildCommand: "pip install -r backend/requirements.txt"
-    startCommand: "cd backend && gunicorn app:app"
+    startCommand: "gunicorn --pythonpath backend app:app"
     plan: free
     envVars:
       - key: GEMINI_API_KEY
