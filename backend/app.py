@@ -21,6 +21,10 @@ app = Flask(__name__)
 # Apply CORS to allow cross-origin requests from the frontend
 CORS(app)
 
+@app.route('/', methods=['GET'])
+def health_check():
+    return jsonify({"status": "healthy", "service": "FairHire Backend"}), 200
+
 @app.route('/audit', methods=['POST'])
 def audit():
     """
