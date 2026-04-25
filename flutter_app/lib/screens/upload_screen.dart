@@ -53,7 +53,7 @@ class _UploadScreenState extends State<UploadScreen> {
       // Step 3: Send file to Flask Backend
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('https://fairhire-backend.onrender.com/audit'),
+        Uri.parse('https://fairhire-backend-6nzl.onrender.com/audit'),
       );
 
       request.files.add(
