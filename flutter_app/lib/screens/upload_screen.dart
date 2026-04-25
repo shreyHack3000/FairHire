@@ -54,7 +54,7 @@ class _UploadScreenState extends State<UploadScreen> {
       String base64Data = base64Encode(_selectedFile!.bytes!);
       
       var response = await http.post(
-        Uri.parse('https://fairhire-backend-6nzl.onrender.com/audit'),
+        Uri.parse('/api/audit'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "file_b64": base64Data,

@@ -41220,7 +41220,7 @@ else{g=A.cs("Could not read file. Please try again.")
 throw A.i(g)}g=m.f.c
 g.toString
 k=B.lP.gG1().dc(g)
-g=A.h3("https://fairhire-backend-6nzl.onrender.com/audit",0,null)
+g=A.h3("/api/audit",0,null)
 f=t.N
 e=A.ak(["Content-Type","application/json"],f,f)
 s=8

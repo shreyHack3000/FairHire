@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/api/audit", "destination": "https://fairhire-backend-6nzl.onrender.com/audit" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
