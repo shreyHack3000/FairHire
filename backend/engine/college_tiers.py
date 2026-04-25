@@ -1,16 +1,19 @@
 import pandas as pd
 import numpy as np
+import os
 
-# Dictionary defining college tiers for bias detection
-TIER_1 = [
-    "IIT Delhi", "IIT Bombay", "IIT Madras", "IIT Kanpur", "IIT Kharagpur", 
-    "IIT Roorkee", "IIT Guwahati", "NIT Trichy", "BITS Pilani", "IIT BHU"
-]
+import json
 
-TIER_2 = [
-    "DTU", "VIT", "SRM", "Manipal", "NSIT", "IIIT Hyderabad", 
-    "NIT Surathkal", "NIT Warangal", "BITS Hyderabad", "BITS Goa"
-]
+# Load college tiers from data/college_tiers.json
+try:
+    with open(os.path.join(os.path.dirname(__file__), '../../data/college_tiers.json'), 'r') as f:
+        TIERS = json.load(f)
+    TIER_1 = TIERS.get("Tier 1", [])
+    TIER_2 = TIERS.get("Tier 2", [])
+except Exception as e:
+    print(f"Error loading college_tiers.json: {e}")
+    TIER_1 = []
+    TIER_2 = []
 
 def map_tier(college_name):
     """ Helper function to map a college name to its corresponding tier. Case-insensitive. """

@@ -1,37 +1,58 @@
 # FairHire — AI Bias Vulnerability Auditor
 
-> India's first pentest-style bias audit tool for AI hiring systems.
+![FairHire Banner](https://img.shields.io/badge/FairHire-AI_Bias_Auditor-EF4444?style=for-the-badge)
+![Flutter](https://img.shields.io/badge/Flutter-Web-02569B?style=for-the-badge&logo=flutter)
+![Python](https://img.shields.io/badge/Python-Flask-3776AB?style=for-the-badge&logo=python)
+![Gemini](https://img.shields.io/badge/Gemini_2.0-Flash-4285F4?style=for-the-badge&logo=google-gemini)
 
-Built for Google Solution Challenge 2026 — Problem Statement 4: Unbiased AI.
+> **"Fixing the system, not the student."**
 
-## The Problem
-60% of large Indian companies use AI to screen resumes.
-These systems are trained on biased historical data — IIT graduates
-get selected at 85% rate, Tier-3 college graduates at 22%, for the
-same skills and experience. The AI filters candidates before a human
-ever reads their name.
+FairHire is India's first AI-driven vulnerability auditor for hiring datasets. It identifies algorithmic biases in selection processes—specifically targeting Institutional Pedigree, Socio-Cultural Identity, and Geographic Access—and provide AI-powered remediation plans using Gemini 2.0.
 
-## What FairHire Does
-Upload your company's hiring dataset → FairHire audits it for
-college tier bias → generates a professional bias vulnerability
-report with CVE IDs, severity scores, and AI-powered fix
-recommendations.
+## 🔴 The Problem
+Over 1.5 million engineering graduates enter the Indian job market annually. Most screening is handled by "Black Box" AI systems that often harbor unconscious biases based on college tiers, name-based cultural indicators, and location. Companies want to be fair, but they lack the tools to audit their own algorithms.
 
-## Live Demo
-🔗 [fairhire.web.app](https://fairhire.web.app) ← prototype link (live after Apr 19)
+## 🟢 The Solution
+FairHire acts as a "Security Scanner" for HR. By uploading a hiring dataset, organizations get a professional-grade **Audit Report** with:
+- **CVE-style Findings**: Unique identifiers (e.g., `IN-BIAS-2025-0001`) for every bias pattern.
+- **Bias Fingerprint**: A Radar chart visualizing the organizational bias profile.
+- **Gemini Remediation**: Actionable, AI-generated fixes to mitigate detected biases.
 
-## Tech Stack
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Flutter Web |
-| Backend | Python, Flask, Pandas |
-| AI | Google Gemini API |
-| Database | Firebase Firestore |
-| Storage | Firebase Cloud Storage |
-| Deployment | Google Cloud Run + Firebase Hosting |
+## 🛠 Tech Stack
+- **Frontend**: Flutter Web (Material 3, fl_chart, Google Fonts)
+- **Backend**: Python Flask (Pandas, NumPy, Flask-CORS)
+- **AI Layer**: Gemini 2.0 Flash (Multi-model fallback & Rule-based fallback)
+- **Deployment**: Google Cloud Run (Backend) & Firebase Hosting (Frontend)
 
-## Team Roadmap
-See `/docs/fairhire_roadmap.jsx` for the full interactive build plan.
-Each person's tasks, steps, and deliverables are inside.
+## 🏗 Architecture
+```mermaid
+graph LR
+    A[Hiring Dataset .CSV] --> B[Flutter Web UI]
+    B --> C[Flask API on Cloud Run]
+    C --> D[Bias Detection Engine]
+    D --> E[CVSS-style Scorer]
+    E --> F[Gemini 2.0 Explainer]
+    F --> G[JSON Audit Report]
+    G --> B
+```
 
-## Project Structure
+## 🚀 Getting Started
+
+### Backend
+1. `cd backend`
+2. `pip install -r requirements.txt`
+3. `python app.py`
+
+### Frontend
+1. `cd flutter_app`
+2. `flutter pub get`
+3. `flutter run -d chrome`
+
+## 👥 Team
+- **Backend Lead**: [Your Name]
+- **Frontend Lead**: [Teammate Name]
+- **Data & AI**: [Teammate Name]
+- **DevOps**: [Teammate Name]
+
+---
+*Created for the Hack2Skill Prototype Submission — April 2026*

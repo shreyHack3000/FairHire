@@ -102,5 +102,6 @@ def audit():
 
 # Entry point for running the application
 if __name__ == '__main__':
-    # Run the Flask development server
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Use PORT from environment variable (default 8080 for Cloud Run)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
