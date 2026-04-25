@@ -18,8 +18,8 @@ from gemini.explainer import generate_batch_recommendations
 # Initialize the Flask application
 app = Flask(__name__)
 
-# Apply CORS to allow cross-origin requests from the frontend
-CORS(app)
+# Apply CORS to allow cross-origin requests from the Vercel frontend
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 @app.route('/', methods=['GET'])
 def health_check():

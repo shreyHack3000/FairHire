@@ -66,7 +66,7 @@ class _UploadScreenState extends State<UploadScreen> {
 
       setState(() => _loadingText = 'Generating AI recommendations...');
       
-      var response = await request.send();
+      var response = await request.send().timeout(const Duration(minutes: 2));
       
       if (response.statusCode == 200) {
         var responseData = await response.stream.bytesToString();
