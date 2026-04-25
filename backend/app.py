@@ -32,20 +32,29 @@ def audit():
     and return a structured audit report with AI-remediation steps.
     """
     
-    # 1. Validate File Upload
-    if 'file' not in request.files:
-        return jsonify({"error": "No file part in the request"}), 400
-    
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({"error": "No file selected for upload"}), 400
-
-    if not file.filename.lower().endswith('.csv'):
-        return jsonify({"error": "Invalid file format. Please upload a CSV file."}), 400
-
     try:
+        # 1. Validate File Upload
+        if 'file' in request.files:
+            file = request.files['file']
+            if file.filename == '':
+                return jsonify({"error": "No file selected for upload"}), 400
+            if not file.filename.lower().endswith('.csv'):
+                return jsonify({"error": "Invalid file format."}), 400
+            stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
+            filename = file.filename
+        elif request.is_json:
+            data = request.get_json()
+            if 'file_b64' in data:
+                import base64
+                decoded_bytes = base64.b64decode(data['file_b64'])
+                stream = io.StringIO(decoded_bytes.decode("UTF8"), newline=None)
+                filename = data.get('filename', 'upload.csv')
+            else:
+                return jsonify({"error": "No file data in JSON"}), 400
+        else:
+            return jsonify({"error": "Invalid request format. Send multipart or JSON."}), 400
+
         # 2. Load CSV into a Pandas DataFrame
-        stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
         df = pd.read_csv(stream)
         
         # --- Normalization Logic ---
@@ -88,7 +97,7 @@ def audit():
         # 6. Construct Final Audit Response
         audit_report = {
             "status": "success",
-            "filename": file.filename,
+            "filename": filename,
             "total_candidates_analyzed": len(df),
             "overall_risk_profile": "High" if any(f['severity_score'] > 7 for f in findings) else "Moderate",
             "bias_fingerprint": radar_data, # For Radar/Spider Chart visualization

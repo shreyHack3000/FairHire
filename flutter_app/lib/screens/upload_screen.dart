@@ -50,27 +50,22 @@ class _UploadScreenState extends State<UploadScreen> {
         throw Exception("Could not read file. Please try again.");
       }
 
-      // Step 3: Send file to Flask Backend
-      var request = http.MultipartRequest(
-        'POST',
+      // Step 3: Send file to Flask Backend using Base64 JSON (Bypasses Web CORS issues)
+      String base64Data = base64Encode(_selectedFile!.bytes!);
+      
+      var response = await http.post(
         Uri.parse('https://fairhire-backend-6nzl.onrender.com/audit'),
-      );
-
-      request.files.add(
-        http.MultipartFile.fromBytes(
-          'file',
-          _selectedFile!.bytes!,
-          filename: _selectedFile!.name,
-        ),
-      );
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "file_b64": base64Data,
+          "filename": _selectedFile!.name
+        }),
+      ).timeout(const Duration(minutes: 2));
 
       setState(() => _loadingText = 'Generating AI recommendations...');
       
-      var response = await request.send().timeout(const Duration(minutes: 2));
-      
       if (response.statusCode == 200) {
-        var responseData = await response.stream.bytesToString();
-        var report = jsonDecode(responseData);
+        var report = jsonDecode(response.body);
         
         if (report['status'] == 'error') {
           throw Exception(report['message'] ?? 'Unknown error occurred.');
