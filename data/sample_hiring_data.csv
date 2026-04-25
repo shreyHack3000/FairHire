@@ -1,0 +1,51 @@
+Candidate Id,Name,College,College tier,City,Skills,Years exp,selected
+STU19CSE483,Rahul Verma,IIT Delhi,1,Delhi,"Python,ML,Data Analysis",2,1
+STU18CSE017,Sneha Iyer,NIT Trichy,1,Tiruchirappalli,"Python,ML,Data Analysis",2,1
+STU20CSE392,Arjun Mehta,IIT Bombay,1,Mumbai,"Python,ML,Data Analysis",2,1
+STU19CSE105,Priya Sharma,NIT Surathkal,1,Surathkal,"Python,ML,Data Analysis",2,1
+STU18CSE276,Karan Patel,IIT Kanpur,1,Kanpur,"Python,ML,Data Analysis",2,1
+STU20CSE451,Ananya Das,NIT Warangal,1,Warangal,"Python,ML,Data Analysis",2,1
+STU19CSE089,Rohit Singh,IIT Kharagpur,1,Kharagpur,"Python,ML,Data Analysis",2,1
+STU18CSE334,Neha Gupta,NIT Calicut,1,Calicut,"Python,ML,Data Analysis",2,1
+STU20CSE512,Aditya Rao,IIT Madras,1,Chennai,"Python,ML,Data Analysis",2,1
+STU19CSE063,Pooja Kulkarni,NIT Nagpur,1,Nagpur,"Python,ML,Data Analysis",2,0
+STU18CSE248,Vikram Joshi,IIT Roorkee,1,Roorkee,"Python,ML,Data Analysis",2,1
+STU20CSE019,Simran Kaur,NIT Jalandhar,1,Jalandhar,"Python,ML,Data Analysis",2,0
+STU19CSE367,Aman Khan,NIT Durgapur,1,Durgapur,"Python,ML,Data Analysis",2,0
+STU18CSE290,Riya Chatterjee,IIT GUWAHATI,1,Guwahati,"Python,ML,Data Analysis",2,1
+STU20CSE441,Saurabh Mishra,IIT Hyderabad,1,Hyderabad,"Python,ML,Data Analysis",2,1
+STU19CSE156,Rohan Malhotra,DTU,2,Delhi,"Python,ML,Data Analysis",2,1
+STU18CSE078,Kavya Nair,VIT Vellore,2,Vellore,"Python,ML,Data Analysis",2,1
+STU20CSE509,Siddharth Jain,DTU,2,Delhi,"Python,ML,Data Analysis",2,1
+STU19CSE314,Meera Reddy,VIT Chennai,2,Chennai,"Python,ML,Data Analysis",2,0
+STU18CSE227,Yash Agarwal,DTU,2,Delhi,"Python,ML,Data Analysis",2,1
+STU20CSE135,Tanvi Deshpande,VIT Bhopal,2,Bhopal,"Python,ML,Data Analysis",2,0
+STU19CSE402,Harsh Vardhan,DTU,2,Delhi,"Python,ML,Data Analysis",2,1
+STU18CSE061,Ishita Sen,VIT Vellore,2,Vellore,"Python,ML,Data Analysis",2,0
+STU20CSE488,Devansh Kapoor,DTU,2,Delhi,"Python,ML,Data Analysis",2,1
+STU19CSE299,Aditi Mishra,VIT Amaravati,2,Amaravati,"Python,ML,Data Analysis",2,1
+STU18CSE174,Nikhil Bansal,DTU,2,Delhi,"Python,ML,Data Analysis",2,0
+STU20CSE356,Shreya Pillai,VIT Chennai,2,Chennai,"Python,ML,Data Analysis",2,1
+STU19CSE042,Prateek Saxena,DTU,2,Delhi,"Python,ML,Data Analysis",2,0
+STU18CSE421,Rituparna Ghosh,VIT Bhopal,2,Bhopal,"Python,ML,Data Analysis",2,0
+STU20CSE088,Manav Arora,VIT Vellore,2,Vellore,"Python,ML,Data Analysis",2,0
+STU19CSE267,Ankit Yadav,GLBITM,3,Greater 0ida,"Python,ML,Data Analysis",2,1
+STU18CSE390,Mohammad Rizwan,IIMT,3,Meerut,"Python,ML,Data Analysis",2,0
+STU20CSE054,Deepak Kumar,GCET,3,Greater 0ida,"Python,ML,Data Analysis",2,1
+STU19CSE463,Fatima Sheikh,ABESEC,3,Ghaziabad,"Python,ML,Data Analysis",2,0
+STU18CSE120,Mohit Tyagi,GLBITM,3,Greater 0ida,"Python,ML,Data Analysis",2,1
+STU20CSE275,Ali Hasan,NIET,3,Greater 0ida,"Python,ML,Data Analysis",2,0
+STU19CSE318,Vivek Sharma,GNIOT,3,Greater 0ida,"Python,ML,Data Analysis",2,0
+STU18CSE036,Riya Saxena,JSSATE,3,0ida,"Python,ML,Data Analysis",2,0
+STU20CSE499,Sandeep Pal,IMSEC,3,Ghaziabad,"Python,ML,Data Analysis",2,0
+STU19CSE147,A1ha Khan,MIET,3,Meerut,"Python,ML,Data Analysis",2,0
+STU18CSE260,Rahul Thakur,IIMT,3,Greater 0ida,"Python,ML,Data Analysis",2,0
+STU20CSE511,Nidhi Bansal,ABESIT,3,Ghaziabad,"Python,ML,Data Analysis",2,0
+STU19CSE073,Aman Gupta,AKGEC,3,Ghaziabad,"Python,ML,Data Analysis",2,1
+STU18CSE326,Sakshi Tiwari,RBS,3,Agra,"Python,ML,Data Analysis",2,0
+STU20CSE184,Prince Raj,DEI,3,Agra,"Python,ML,Data Analysis",2,0
+STU19CSE297,Zaid Ahmed,BCE,3,Patna,"Python,ML,Data Analysis",2,0
+STU18CSE408,Ajay Mishra,NCE,3,Patna,"Python,ML,Data Analysis",2,0
+STU20CSE091,Sana Parveen,MIET,3,Meerut,"Python,ML,Data Analysis",2,0
+STU19CSE350,Tarun Choudhary,RBS,3,Agra,"Python,ML,Data Analysis",2,0
+STU18CSE229,Muskan Ali,DEI,3,Agra,"Python,ML,Data Analysis",2,0
