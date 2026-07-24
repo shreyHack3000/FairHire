@@ -21,6 +21,10 @@ app = Flask(__name__)
 # Apply CORS to allow cross-origin requests from the frontend
 CORS(app)
 
+@app.route('/', methods=['GET'])
+def home():
+    return "The FairHire API is running successfully!"
+
 @app.route('/audit', methods=['POST'])
 def audit():
     """
