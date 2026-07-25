@@ -3,6 +3,7 @@ from flask_cors import CORS
 import pandas as pd
 import io
 import os
+from datetime import datetime
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 
@@ -22,9 +23,78 @@ app = Flask(__name__)
 # Apply CORS to allow cross-origin requests from the frontend
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+# --- SUPABASE DATABASE CONFIGURATION ---
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+# Define the table structure for Supabase PostgreSQL
+class AuditHistory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(255))
+    total_analyzed = db.Column(db.Integer)
+    risk_profile = db.Column(db.String(50))
+    findings_count = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "filename": self.filename,
+            "total_analyzed": self.total_analyzed,
+            "risk_profile": self.risk_profile,
+            "findings_count": self.findings_count,
+            "created_at": self.created_at.isoformat() if self.created_at else None
+        }
+
+# Create the table if it doesn't exist yet
+with app.app_context():
+    try:
+        db.create_all()
+        print("[Supabase DB] Tables verified/created successfully.")
+    except Exception as db_init_err:
+        print(f"[Supabase DB Warning] Table creation skipped on startup: {db_init_err}")
+# ---------------------------------------
+
 @app.route('/', methods=['GET'])
 def home():
-    return "The FairHire API is running successfully!"
+    return jsonify({
+        "status": "online",
+        "message": "The FairHire API (Supabase PostgreSQL powered) is running successfully!"
+    }), 200
+
+@app.route('/audits', methods=['GET'])
+def get_audits():
+    """Returns a list of all historical bias audits stored in Supabase PostgreSQL."""
+    try:
+        audits = AuditHistory.query.order_by(AuditHistory.created_at.desc()).all()
+        return jsonify({
+            "status": "success",
+            "count": len(audits),
+            "audits": [audit.to_dict() for audit in audits]
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"Failed to retrieve audit history: {str(e)}"
+        }), 500
+
+@app.route('/audits/<int:audit_id>', methods=['GET'])
+def get_audit(audit_id):
+    """Returns details for a specific historical audit from Supabase PostgreSQL."""
+    try:
+        audit = AuditHistory.query.get(audit_id)
+        if not audit:
+            return jsonify({"status": "error", "message": f"Audit {audit_id} not found"}), 404
+        return jsonify({
+            "status": "success",
+            "audit": audit.to_dict()
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"Failed to retrieve audit {audit_id}: {str(e)}"
+        }), 500
 
 @app.route('/audit', methods=['POST'])
 def audit():
@@ -96,6 +166,21 @@ def audit():
             "findings": final_findings
         }
 
+        # 7. Save the audit summary to Supabase PostgreSQL
+        try:
+            new_audit = AuditHistory(
+                filename=file.filename,
+                total_analyzed=len(df),
+                risk_profile=audit_report["overall_risk_profile"],
+                findings_count=len(final_findings)
+            )
+            db.session.add(new_audit)
+            db.session.commit()
+            audit_report["audit_id"] = new_audit.id
+        except Exception as db_err:
+            db.session.rollback()
+            print(f"[Supabase DB Warning] Could not persist audit summary: {db_err}")
+
         return jsonify(audit_report), 200
 
     except Exception as e:
@@ -109,3 +194,4 @@ def audit():
 if __name__ == '__main__':
     # Run the Flask development server
     app.run(host='0.0.0.0', port=5000, debug=True)
+

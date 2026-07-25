@@ -24,11 +24,11 @@ recommendations.
 | Layer | Technology |
 |-------|-----------|
 | Frontend | Flutter Web |
-| Backend | Python, Flask, Pandas |
+| Backend | Python, Flask, Pandas, SQLAlchemy |
 | AI | Google Gemini API |
-| Database | Firebase Firestore |
-| Storage | Firebase Cloud Storage |
-| Deployment | Google Cloud Run + Firebase Hosting |
+| Database | Supabase (PostgreSQL) |
+| Storage | Supabase Storage |
+| Deployment | Google Cloud Run / Containerized API |
 
 ## Team Roadmap
 See `/docs/fairhire_roadmap.jsx` for the full interactive build plan.
