@@ -4,6 +4,7 @@ import pandas as pd
 import io
 import os
 from dotenv import load_dotenv
+from flask_sqlalchemy import SQLAlchemy
 
 # Load environment variables from .env file
 load_dotenv()
@@ -19,7 +20,7 @@ from gemini.explainer import generate_batch_recommendations
 app = Flask(__name__)
 
 # Apply CORS to allow cross-origin requests from the frontend
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/', methods=['GET'])
 def home():
