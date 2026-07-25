@@ -1,0 +1,11 @@
+{
+    "name": "FairHire — AI Bias Vulnerability Auditor",
+    "short_name": "FairHire",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0B0F19",
+    "theme_color": "#6366F1",
+    "description": "Pentest-Style AI Bias Vulnerability Auditor for Automated Hiring Systems",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false
+}

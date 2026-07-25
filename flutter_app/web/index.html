@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairHire — AI Bias Vulnerability Auditor</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>FairHire <span class="brand-badge">AI BIAS AUDITOR</span></h1>
+        <div class="brand-sub">Pentest-Style Bias Vulnerability Auditor for Automated Hiring Systems</div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn-history" id="btnHistory">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Audit History
+      </button>
+
+      <div class="health-badge online" id="healthBadge" onclick="checkBackendHealth()">
+        <div class="health-dot"></div>
+        <span id="healthText">CHECKING API...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- Hero / Intro Banner -->
+    <div class="hero-card">
+      <div class="hero-subtitle">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        PREVENT AI BIAS DISPARITY BEFORE PRODUCTION
+      </div>
+      <h2 class="hero-title">Audit Candidate Datasets with Pentest Precision</h2>
+      <p class="hero-desc">
+        FairHire audits candidate datasets across College Tiers, Name/Ethnicity proxies, and Locations. 
+        Generates CVSS-style vulnerability reports paired with batched Google Gemini AI remediation fixes.
+      </p>
+    </div>
+
+    <!-- Error Box -->
+    <div id="errorBox" style="display:none; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); color:#F87171; padding:16px; border-radius:12px; margin-bottom:20px; font-size:14px; font-weight:600;"></div>
+
+    <!-- Section 1: CSV File Upload & Sample Loader -->
+    <section id="uploadSection">
+      <div class="dropzone-card">
+        
+        <!-- Loading Spinner State -->
+        <div id="auditLoading" style="display:none; flex-direction:column; align-items:center; justify-content:center; padding:40px 0;">
+          <div style="width:44px; height:44px; border:4px solid rgba(99,102,241,0.2); border-top-color:#6366F1; border-radius:50%; animation:spin 1s linear infinite;"></div>
+          <p id="loadingText" style="margin-top:16px; font-weight:700; color:#A5B4FC; font-size:14px;"></p>
+          <p style="margin-top:4px; font-size:12px; color:#94A3B8;">Executing bias detection algorithms & batched Gemini AI recommendations...</p>
+        </div>
+
+        <!-- Dropzone Box -->
+        <div class="dropzone-inner" id="dropzone">
+          <div class="drop-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          </div>
+          <div class="drop-title">Click or Drag & Drop Hiring CSV Dataset</div>
+          <div class="drop-hint">Supports candidate CSV files containing Candidate Id, Name, College, Tier, City, Skills, Experience & Status</div>
+        </div>
+
+        <input type="file" id="csvFileInput" accept=".csv" style="display:none;">
+
+        <div class="btn-group">
+          <button class="btn-primary" id="btnBrowse">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+            Browse Local CSV File
+          </button>
+          <button class="btn-secondary" id="btnSample">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            Load Sample Hiring Dataset
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 2: Audit Results Dashboard -->
+    <section id="reportSection" style="display:none;">
+      
+      <!-- Action Bar -->
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:36px; height:36px; background:rgba(16,185,129,0.15); color:#34D399; border-radius:8px; display:flex; align-items:center; justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <div>
+            <h3 style="font-size:20px; font-weight:800; color:#fff;" id="reportFilename">Audit Analysis Report</h3>
+            <div style="font-size:12px; color:#94A3B8;" id="reportAuditId"></div>
+          </div>
+        </div>
+
+        <button class="btn-primary" style="background:#334155;" onclick="resetToNewAudit()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          Audit Another CSV
+        </button>
+      </div>
+
+      <!-- Top Summary Metrics Cards Grid -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            Total Candidates
+          </div>
+          <div class="metric-value" id="metricCandidates">0</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Overall Risk Profile
+          </div>
+          <div style="margin-top:4px;">
+            <span class="risk-badge risk-high" id="metricRisk">MODERATE</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
+            Vulnerabilities Found
+          </div>
+          <div class="metric-value" id="metricFindings">0</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            Database Persist Status
+          </div>
+          <div class="metric-value" style="color:#10B981; font-size:16px;">Supabase Verified</div>
+        </div>
+      </div>
+
+      <!-- Report Layout: Left Findings List + Right Sidebar Radar Chart -->
+      <div class="report-grid">
+        <div>
+          <div style="font-size:13px; font-weight:800; letter-spacing:0.8px; color:#A5B4FC; margin-bottom:14px; display:flex; align-items:center; gap:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 17l6-6-6-6M12 19h8"/></svg>
+            DETECTED BIAS VULNERABILITIES (CVE REPORTS)
+          </div>
+          <div id="findingsContainer"></div>
+        </div>
+
+        <div>
+          <div class="radar-card">
+            <div class="radar-title">
+              <span>BIAS FINGERPRINT RADAR</span>
+              <span style="font-size:10px; color:#A5B4FC; background:rgba(99,102,241,0.2); padding:2px 6px; border-radius:4px;">0 - 10 Score</span>
+            </div>
+            <canvas id="radarCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- History Drawer -->
+  <div class="drawer" id="historyDrawer">
+    <div class="drawer-header">
+      <div style="font-weight:700; font-size:16px;">Supabase Audit History</div>
+      <button id="btnCloseDrawer" style="background:none; border:none; color:#94A3B8; cursor:pointer; font-size:18px;">✕</button>
+    </div>
+    <div id="historyList" style="padding:16px; overflow-y:auto; flex:1;"></div>
+  </div>
+
+  <style>
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  </style>
+
+  <script src="app.js"></script>
+</body>
+</html>
